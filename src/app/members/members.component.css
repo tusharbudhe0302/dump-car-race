@@ -1,0 +1,6 @@
+table {
+    width: 100%;
+  }
+  .myCustomHeading{position:relative;padding-top:4px;}
+.myIcon{position:relative;}
+.mySpan{position:absolute;padding-top:2px;}

@@ -2,6 +2,7 @@
 
 import * as express from 'express';
 import {Application} from "express";
+const cors = require('cors');
 
 const app: Application = express();
 
@@ -80,6 +81,7 @@ const teams = [
         "teamname": "team 5"
     }
 ]
+app.use(cors());
 app.get('/api/members',(req,res,next)=>{
     res.send(members)
 });
