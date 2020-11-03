@@ -1,24 +1,28 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
+  let fixture;
+  let app;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent
       ],
-    }).compileComponents();
+      schemas:[CUSTOM_ELEMENTS_SCHEMA]
+    }).compileComponents().then(() => {
+      fixture = TestBed.createComponent(AppComponent);
+      app = fixture.componentInstance;
+    });
   }));
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 
   it(`should have as title 'dump-car-race'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
+    fixture.detectChanges();
     expect(app.title).toEqual('dump-car-race');
   });
 });

@@ -9,13 +9,16 @@ import { Member } from '../services/model/member';
 })
 export class MembersComponent implements OnInit {
   members: Member[];
-  displayedColumns: string[] = ['firstname', 'lastname', 'team', 'jobtitle', 'status','action'];
-  constructor(private membersService: MembersService) { }
+  displayedColumns: string[] = ['firstname', 'lastname', 'team', 'jobtitle', 'status', 'action'];
+  constructor(public membersService: MembersService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.getMembers();
+  }
+  getMembers() {
     this.membersService.getAllMembers().subscribe((members) => {
       this.members = members;
-    })
+    });
   }
 
 }
