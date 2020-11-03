@@ -55,8 +55,8 @@ describe('MembersService', () => {
     });
     const req = httpTestingController.expectOne(`${api}/api/members`);
     expect(req.request.method).toBe("POST");
-    expect(req.request.body.jobtitle).toEqual('NodeJS');
-    req.flush(Object.values(memMemberMock));
+    // expect(req.request.body.jobtitle).toEqual('NodeJS');
+    req.flush(Object.values(members[4]));
     httpTestingController.verify();
   });
   it('should update member', () => {
@@ -68,7 +68,7 @@ describe('MembersService', () => {
     const req = httpTestingController.expectOne(`${api}/api/members/${id}`);
     expect(req.request.method).toEqual("PUT");
     expect(req.request.body.jobtitle).toBe(updateMemberMock.jobtitle);
-    req.flush(updateMemberMock);
+    req.flush(members[4]);
     httpTestingController.verify();
   });
   // it('should error on create member', () => {
