@@ -51,6 +51,7 @@ describe('MembersService', () => {
   it('should create member', () => {
     let memMemberMock: Partial<Member> = { firstname: 'tushar', lastname: 'budhe', jobtitle: 'NodeJS', status: 'active', team: 'team' };
     service.createMember(memMemberMock).subscribe((member) => {
+      expect(member).toHaveBeenCalled();
       expect(member).toBeTruthy();
     });
     const req = httpTestingController.expectOne(`${api}/api/members`);
@@ -62,7 +63,7 @@ describe('MembersService', () => {
   it('should update member', () => {
     const updateMemberMock: Partial<Member> = members[4];
     service.editMember(id, updateMemberMock).subscribe((member) => {
-      expect(member).toHaveBeenCalledTimes(1);
+      expect(member).toHaveBeenCalled();
       expect(member._id).toBe(id);
     });
     const req = httpTestingController.expectOne(`${api}/api/members/${id}`);
