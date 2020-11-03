@@ -1,12 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MembersComponent } from './members/members.component';
 import { MemberinfoComponent } from './memberinfo/memberinfo.component';
 import { TeamsComponent } from './teams/teams.component';
 import { TeaminfoComponent } from './teaminfo/teaminfo.component';
+import { ServicesModule } from './services/services.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { TeaminfoComponent } from './teaminfo/teaminfo.component';
     BrowserModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [ServicesModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

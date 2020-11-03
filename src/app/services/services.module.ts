@@ -9,8 +9,6 @@ import { TeaminfoComponent } from '../teaminfo/teaminfo.component';
 import { MembersService } from './members.service';
 import { TeamsService } from './teams.service';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
