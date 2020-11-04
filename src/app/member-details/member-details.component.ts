@@ -20,7 +20,7 @@ export class MemberDetailsComponent implements OnInit {
   id: string;
   member: Member;
   editChnages: boolean = true;
-  constructor(public fb: FormBuilder, public teamsService: TeamsService,  private router: Router,public activeRoute: ActivatedRoute, public memberService: MembersService) { }
+  constructor(public fb: FormBuilder, public teamsService: TeamsService, public memberService: MembersService) { }
 
   ngOnInit() {
     this.memberDetailForm = this.fb.group({
@@ -28,7 +28,7 @@ export class MemberDetailsComponent implements OnInit {
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
       jobtitle: [''],
-      status: ['', Validators.required],
+      status: ['active', Validators.required],
       team: ['', Validators.required],
       created: new Date(),
       modified: new Date()
@@ -46,9 +46,9 @@ export class MemberDetailsComponent implements OnInit {
   // }
   getRoutesParams() {
     const uuidV4RegEx = /[\w]{8}-[\w]{4}-[\w]{4}-[\w]{4}-[\w]{12}/;
-    this.activeRoute.params.subscribe(params => {
-      this.id = uuidV4RegEx.test(params['id']) === true ? params['id'] : null;
-    });
+    // this.activeRoute.params.subscribe(params => {
+    //   this.id = uuidV4RegEx.test(params['id']) === true ? params['id'] : null;
+    // });
   }
   getMemberById() {
     if (this.id) {
@@ -69,13 +69,13 @@ export class MemberDetailsComponent implements OnInit {
     if (this.id) {
       this.memberService.editMember(this.id,memberDetailForm.value).subscribe((res)=>{
         console.log(`Update Service need to called:${res}`);
-        this.router.navigate(['members']);
+        // this.router.navigate(['members']);
       })
     }
     else {
       this.memberService.createMember(memberDetailForm.value).subscribe((res)=>{
         console.log(`Create Service need to called :${res}`);
-        this.router.navigate(['members']);
+        // this.router.navigate(['members']);
       })
     }
     console.log(memberDetailForm.value);

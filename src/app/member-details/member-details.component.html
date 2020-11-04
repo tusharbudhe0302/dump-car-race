@@ -2,7 +2,7 @@
     <mat-form-field class="form-field" appearance="outline">
         <mat-label> First Name
         </mat-label>
-        <input matInput formControlName="firstname" required>
+        <input id="firstname" matInput formControlName="firstname" required>
         <mat-error *ngIf="memberDetailForm.controls.firstname.touched && memberDetailForm.controls.firstname.invalid">
             <span *ngIf="memberDetailForm.controls.firstname.errors.required">Please enter first name.</span>
         </mat-error>
@@ -10,7 +10,7 @@
     <mat-form-field class="form-field" appearance="outline">
         <mat-label> Last Name
         </mat-label>
-        <input matInput formControlName="lastname" required>
+        <input id="lastname" matInput formControlName="lastname" required>
         <mat-error *ngIf="memberDetailForm.controls.lastname.touched && memberDetailForm.controls.lastname.invalid">
             <span *ngIf="memberDetailForm.controls.lastname.errors.required">Please enter last name.</span>
         </mat-error>
@@ -18,18 +18,28 @@
     <mat-form-field class="form-field" appearance="outline">
         <mat-label> Expert Level
         </mat-label>
-        <input matInput formControlName="jobtitle">
+        <input id="jobtitle" matInput formControlName="jobtitle">
     </mat-form-field>
+    <!-- <div class="form-group col-md-6">
+        <div class="row">
+          <label id="activeStatus" class="md-check lead">
+            <input type="radio" value="active" name="status" formControlName="status"> Active
+          </label>
+          <label class="md-check lead">
+            <input type="radio" value="inactive" name="status" formControlName="status"> Inactive
+          </label>
+        </div>
+      </div> -->
     <div class="form-group">
         <mat-label>Status</mat-label>
-        <mat-radio-group class="form-control" aria-label="Select an option" formControlName="status">
-            <mat-radio-button value="active">Active &nbsp;&nbsp;</mat-radio-button>
-            <mat-radio-button value="inactive">In Active</mat-radio-button>
+        <mat-radio-group class="form-control" aria-label="Select an option" formControlName="status" [(ngModel)]="status" >
+            <mat-radio-button  value="active">Active &nbsp;&nbsp;</mat-radio-button>
+            <mat-radio-button  value="inactive">In Active</mat-radio-button>
         </mat-radio-group>
     </div>
     <mat-form-field class="form-field" appearance="outline">
         <mat-label>Your Team</mat-label>
-        <mat-select formControlName="team" [(ngModel)]="selectedTeam">
+        <mat-select id="teams" formControlName="team" [(ngModel)]="selectedTeam">
             <mat-option *ngFor="let team of teams" value="{{team.teamname}}">{{team.teamname}}</mat-option>
         </mat-select>
         <mat-error *ngIf="memberDetailForm.controls.team.invalid">
@@ -39,7 +49,7 @@
     <p>You selected team: {{selectedTeam}}</p>
 
     <div class="form-group">
-        <button mat-raised-button color="primary" type="submit" [disabled]="memberDetailForm.invalid">Save</button>
+        <button id="matsubmitbutton" mat-raised-button color="primary" type="submit" [disabled]="memberDetailForm.invalid">Save</button>
         <button mat-raised-button [disabled]="memberDetailForm.invalid">Cancel</button>
     </div>
 
