@@ -4,7 +4,7 @@
         </mat-label>
         <input matInput formControlName="firstname" required>
         <mat-error *ngIf="memberDetailForm.controls.firstname.touched && memberDetailForm.controls.firstname.invalid">
-            <span *ngIf="memberDetailForm.controls.firstname.errors.required">This field is mandatory.</span>
+            <span *ngIf="memberDetailForm.controls.firstname.errors.required">Please enter first name.</span>
         </mat-error>
     </mat-form-field>
     <mat-form-field class="form-field" appearance="outline">
@@ -12,7 +12,7 @@
         </mat-label>
         <input matInput formControlName="lastname" required>
         <mat-error *ngIf="memberDetailForm.controls.lastname.touched && memberDetailForm.controls.lastname.invalid">
-            <span *ngIf="memberDetailForm.controls.lastname.errors.required">This field is mandatory.</span>
+            <span *ngIf="memberDetailForm.controls.lastname.errors.required">Please enter last name.</span>
         </mat-error>
     </mat-form-field>
     <mat-form-field class="form-field" appearance="outline">
@@ -23,21 +23,21 @@
     <div class="form-group">
         <mat-label>Status</mat-label>
         <mat-radio-group class="form-control" aria-label="Select an option" formControlName="status">
-            <mat-radio-button class="radio-btn-margin" value="active">Active</mat-radio-button>
-            <mat-radio-button class="radio-btn-margin" value="inactive">In Active</mat-radio-button>
+            <mat-radio-button value="active">Active  &nbsp;&nbsp;</mat-radio-button>
+            <mat-radio-button value="inactive">In Active</mat-radio-button>
         </mat-radio-group>
     </div>
     <mat-form-field class="form-field" appearance="outline">
-        <mat-label>Select an Team</mat-label>
-        <mat-select [(value)]="team">
-            <mat-option>None</mat-option>
-            <mat-option value="team 1">Team 1</mat-option>
-            <mat-option value="team 2">Team 2</mat-option>
-            <mat-option value="team 1">Team 3</mat-option>
+        <mat-label>Your Team</mat-label>
+        <mat-select formControlName="team" [(ngModel)]="selectedTeam">
+            <mat-option *ngFor="let team of teams" value="{{team.teamname}}">{{team.teamname}}</mat-option>
         </mat-select>
+        <mat-error *ngIf="memberDetailForm.controls.team.invalid">
+            <span *ngIf="memberDetailForm.controls.team.errors.required">Please select team.</span>
+        </mat-error>
     </mat-form-field>
-
-    <p>You selected: {{team}}</p>
+    <p>You selected team: {{selectedTeam}}</p>
+    
     <div class="form-element">
         <button mat-raised-button color="primary" type="submit" class="button"
             [disabled]="memberDetailForm.invalid">Submit

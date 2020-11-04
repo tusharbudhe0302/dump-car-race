@@ -8,8 +8,19 @@ import { TeaminfoComponent } from './teaminfo/teaminfo.component';
 import { MemberDetailsComponent } from './member-details/member-details.component';
 
 const routes: Routes = [
-  { path: 'members', component: MembersComponent },
-  { path: 'members/:id', component: MemberDetailsComponent }
+  {
+    path: '',
+    redirectTo: 'members',
+    pathMatch: 'full'
+  },
+  {
+    path: 'members',
+    component: MembersComponent
+  },
+  {
+    path: 'members/:id',
+    component: MemberDetailsComponent
+  }
 ];
 
 

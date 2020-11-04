@@ -12,6 +12,6 @@ export class TeamsService {
   api = environment.base_url;
   constructor(private httpClient: HttpClient) { }
   getAllTeams(): Observable<Team[]> {
-    return this.httpClient.get(`${this.api}/api/members`).pipe(map((res: Team[]) => res.map((x) => x)));
+    return this.httpClient.get(`${this.api}/api/teams`).pipe(map((res: Team[]) => res.map((z) => z)));
   }
 }
