@@ -6,6 +6,7 @@ import { of } from 'rxjs';
 import { MembersComponent } from './members.component';
 import { MembersService } from '../services/members.service';
 import { members } from '../services/services.mock.data';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('MembersComponent', () => {
   let component: MembersComponent;
@@ -18,6 +19,7 @@ describe('MembersComponent', () => {
   });
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports:[HttpClientTestingModule],
       declarations: [MembersComponent],
       providers: [
         { provide: MembersService, useValue: memebersServiceSpyPromise }

@@ -52,7 +52,7 @@ export class MemberDetailsComponent implements OnInit {
   }
   getMemberById() {
     if (this.id) {
-      this.memberService.getAllMemberById(this.id).subscribe((member) => {
+      this.memberService.getMemberById(this.id).subscribe((member) => {
         this.member = member;
         this.memberDetailForm.setValue(member);
         // this.editChnages = false;

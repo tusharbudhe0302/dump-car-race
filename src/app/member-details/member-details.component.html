@@ -23,7 +23,7 @@
     <div class="form-group">
         <mat-label>Status</mat-label>
         <mat-radio-group class="form-control" aria-label="Select an option" formControlName="status">
-            <mat-radio-button value="active">Active  &nbsp;&nbsp;</mat-radio-button>
+            <mat-radio-button value="active">Active &nbsp;&nbsp;</mat-radio-button>
             <mat-radio-button value="inactive">In Active</mat-radio-button>
         </mat-radio-group>
     </div>
@@ -37,10 +37,10 @@
         </mat-error>
     </mat-form-field>
     <p>You selected team: {{selectedTeam}}</p>
-    
-    <div class="form-element">
-        <button mat-raised-button color="primary" type="submit" class="button"
-            [disabled]="memberDetailForm.invalid">Submit
-            Form</button>
+
+    <div class="form-group">
+        <button mat-raised-button color="primary" type="submit" [disabled]="memberDetailForm.invalid">Save</button>
+        <button mat-raised-button [disabled]="memberDetailForm.invalid">Cancel</button>
     </div>
+
 </form>

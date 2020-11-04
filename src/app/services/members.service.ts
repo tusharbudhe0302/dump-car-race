@@ -14,7 +14,7 @@ export class MembersService {
   getAllMembers(): Observable<Member[]> {
     return this.httpClient.get(`${this.api}/api/members`).pipe(map((res: Member[]) => res.map((x) => x)));
   }
-  getAllMemberById(id: string): Observable<Member> {
+  getMemberById(id: string): Observable<Member> {
     return this.httpClient.get(`${this.api}/api/members/${id}`).pipe(map((res: Member) => res));
   }
   createMember(member: Partial<Member>): Observable<Member> {
