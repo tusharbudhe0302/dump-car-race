@@ -30,6 +30,16 @@ describe('MembersComponent', () => {
     });
   }));
 
+  // test passes since all expectations are ignored
+  it("should call get all members services bind to component", () => {
+    membersService.getAllMembers().subscribe((members) => {
+      expect(members).toHaveBeenCalledTimes(1);
+      expect(true).toBeTruthy();
+      const rows = el.queryAllNodes(By.css("mat-cell cdk-cell cdk-column-firstname mat-column-firstname"));
+      // console.log(`rows: ${rows}`);
+      expect(rows.length).toBe(6, "Unexpected number of members found");
+    });
+  });
   it('should create and do ngOnIt', () => {
     expect(component).toBeTruthy();
     fixture.detectChanges();
@@ -39,16 +49,6 @@ describe('MembersComponent', () => {
         expect( component.members ).toBeDefined();
         expect( component.members.length ).toEqual(5);
         return fixture.whenStable();
-    });
-  });
-  // test passes since all expectations are ignored
-  it("should call get all members services bind to component", () => {
-    membersService.getAllMembers().subscribe((members) => {
-      expect(members).toHaveBeenCalledTimes(1);
-      expect(true).toBeTruthy();
-      const rows = el.queryAllNodes(By.css("mat-cell cdk-cell cdk-column-firstname mat-column-firstname"));
-      console.log(`rows: ${rows}`);
-      expect(rows.length).toBe(6, "Unexpected number of members found");
     });
   });
 });

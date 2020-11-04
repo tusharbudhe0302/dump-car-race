@@ -40,6 +40,8 @@
         <td mat-cell *matCellDef="let member">
             <span class="material-icons">
                 create
+                <a [routerLink]="['/member/',member.id]">
+                </a>
             </span>
             <span class="material-icons">
                 delete_sweep

@@ -6,12 +6,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatRadioModule} from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSortModule } from '@angular/material/sort';
@@ -22,7 +24,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { MembersComponent } from './members/members.component';
-import { MemberinfoComponent } from './memberinfo/memberinfo.component';
+// import { MemberinfoComponent } from "./memberinfo/MemberinfoComponent";
 import { TeamsComponent } from './teams/teams.component';
 import { TeaminfoComponent } from './teaminfo/teaminfo.component';
 import { MembersService } from './services/members.service';
@@ -30,14 +32,15 @@ import { TeamsService } from './services/teams.service';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MemberDetailsComponent } from './member-details/member-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MembersComponent,
-    MemberinfoComponent,
     TeamsComponent,
-    TeaminfoComponent
+    TeaminfoComponent,
+    MemberDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -50,10 +53,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatDialogModule,
     MatIconModule,
     MatInputModule,
+    MatFormFieldModule,
     MatListModule,
     MatMenuModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
+    MatRadioModule,
     MatSelectModule,
     MatSidenavModule,
     MatSortModule,
@@ -64,8 +69,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppRoutingModule,
     NgbModule,
   ],
-  providers: [MembersService, TeamsService],
+  providers: [
+    MembersService,
+    TeamsService,
+    // { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { floatLabel: 'always' } }
+  ],
   bootstrap: [AppComponent],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
