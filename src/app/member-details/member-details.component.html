@@ -20,16 +20,6 @@
         </mat-label>
         <input id="jobtitle" matInput formControlName="jobtitle">
     </mat-form-field>
-    <!-- <div class="form-group col-md-6">
-        <div class="row">
-          <label id="activeStatus" class="md-check lead">
-            <input type="radio" value="active" name="status" formControlName="status"> Active
-          </label>
-          <label class="md-check lead">
-            <input type="radio" value="inactive" name="status" formControlName="status"> Inactive
-          </label>
-        </div>
-      </div> -->
     <div class="form-group">
         <mat-label>Status</mat-label>
         <mat-radio-group id="status" class="form-control" aria-label="Select an option" formControlName="status" [(ngModel)]="status" >
@@ -50,7 +40,7 @@
 
     <div class="form-group">
         <button id="matsubmitbutton" mat-raised-button color="primary" type="submit" [disabled]="memberDetailForm.invalid">Save</button>
-        <button mat-raised-button [disabled]="memberDetailForm.invalid">Cancel</button>
+        <button id="matcancelbutton" mat-raised-button (click)="cancelSubmits()">Cancel</button>
     </div>
 
 </form>

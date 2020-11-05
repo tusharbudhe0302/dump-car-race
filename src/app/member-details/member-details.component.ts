@@ -8,15 +8,6 @@ import { MembersService } from '../services/members.service';
 import { Member } from '../services/model/member';
 import { Team } from '../services/model/team';
 import { TeamsService } from '../services/teams.service';
-export class MemberDetails {
-  constructor(
-    _id: string,
-    firstname: string,
-    lastname: string,
-    team: string,
-    jobtitle: string,
-    status: string) { }
-}
 
 @Component({
   selector: 'member-details',
@@ -29,7 +20,7 @@ export class MemberDetailsComponent {
   teams: Team[];
   id: string;
   member: Member;
-  constructor(public fb: FormBuilder, public teamsService: TeamsService, public memberService: MembersService, public activatedRoute: ActivatedRoute) { }
+  constructor(public fb: FormBuilder, public teamsService: TeamsService, public memberService: MembersService, public activatedRoute: ActivatedRoute, public router: Router) { }
 
   ngOnInit() {
     this.memberDetailForm = this.fb.group({
@@ -63,7 +54,7 @@ export class MemberDetailsComponent {
   }
   getMemberById() {
     if (this.id) {
-      this.memberService.getMemberById(this.id).subscribe((member:Member) => {
+      this.memberService.getMemberById(this.id).subscribe((member: Member) => {
         this.member = member;
         this.memberDetailForm.setValue(member);
       })
@@ -78,16 +69,19 @@ export class MemberDetailsComponent {
     if (this.id) {
       this.memberService.editMember(this.id, this.memberDetailForm.value).subscribe((res) => {
         console.log(`Update Service need to called:${res}`);
-        // this.router.navigate(['members']);
+        this.router.navigateByUrl('/members');
       })
     }
     else {
       this.memberService.createMember(this.memberDetailForm.value).subscribe((res) => {
         console.log(`Create Service need to called :${res}`);
-        // this.router.navigate(['members']);
+        this.router.navigateByUrl('/members');
       })
     }
     console.log(this.memberDetailForm.value);
+  }
+  cancelSubmits(){
+    this.router.navigateByUrl('/members');
   }
 
 }

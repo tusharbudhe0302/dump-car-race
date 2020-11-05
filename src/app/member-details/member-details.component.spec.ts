@@ -20,28 +20,33 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Router } from '@angular/router';
 
 import { MemberDetailsComponent } from './member-details.component';
 import { MembersService } from '../services/members.service';
 import { members, teams } from '../services/services.mock.data';
-import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Member } from '../services/model/member';
 import { TeamsService } from '../services/teams.service';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 describe('MemberDetailsComponent', () => {
   let component: MemberDetailsComponent;
   let fixture: ComponentFixture<MemberDetailsComponent>;
   let el: DebugElement;
   let submitEl: DebugElement;
+  let cancelEl: DebugElement;
   let firstnameEl: DebugElement;
   let lastnameEl: DebugElement;
   let jobtitleEl: DebugElement;
   let statusEl: DebugElement;
   let membersService: any;
+  let memeberEditService: any;
+  let memeberAddService: any;
+  let router: any;
   let id = -1;
   let mockActivatedRoute = {
     snapshot: {
@@ -50,8 +55,8 @@ describe('MemberDetailsComponent', () => {
       }
     }
   };
-  beforeEach(async(() => {
 
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [MemberDetailsComponent],
       imports: [
@@ -91,6 +96,7 @@ describe('MemberDetailsComponent', () => {
           }
         },
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
+        { provide: Router, useValue: { navigateByUrl(url: string) { return url; } } }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents().then(() => {
@@ -158,7 +164,9 @@ describe('MemberDetailsComponent', () => {
       errors = team.errors || {};
       expect(errors['required']).toBeTruthy();
     });
-    it('should enable submit button', async(() => {
+    it('should enable Add Memnber Details submit button', async(() => {
+      memeberAddService = TestBed.inject(MembersService);
+      router = TestBed.inject(Router);
       fixture.detectChanges();
       component.ngOnInit();
       component.memberDetailForm.controls['firstname'].setValue(members[4].firstname);
@@ -167,16 +175,22 @@ describe('MemberDetailsComponent', () => {
       component.memberDetailForm.controls['status'].setValue(members[4].status);
       component.memberDetailForm.controls['team'].setValue(members[4].team);
       fixture.detectChanges();
-      // console.log(component.memberDetailForm.status);
       expect(component.memberDetailForm.status).toEqual('VALID');
-      submitEl.triggerEventHandler('ngSubmit', component.memberDetailForm);
+      spyOn(console, 'log');
+      spyOn(memeberAddService, 'createMember').and.returnValue(of(members[4]));
+      spyOn(router, 'navigateByUrl');
+      component.submitMemberDetails();
       fixture.detectChanges();
-      // expect(component.isCreated).toBe(true);
+      expect(memeberAddService.createMember).toHaveBeenCalled();
+      expect(console.log).toHaveBeenCalled();
+      expect(router.navigateByUrl).toHaveBeenCalled();
     }));
   });
   describe('MemberDetails Edit Reactive Form Controls', async () => {
     it('Setting enable the submit button', () => {
       TestBed.inject(ActivatedRoute).snapshot.params['id'] = members[4]._id;
+      memeberEditService = TestBed.inject(MembersService);
+      router = TestBed.inject(Router);
       fixture.detectChanges();
       component.ngOnInit();
       expect(component.id).toEqual(members[4]._id);
@@ -188,6 +202,24 @@ describe('MemberDetailsComponent', () => {
       expect(component.memberDetailForm.controls['firstname'].value).toBe(members[4].firstname);
       expect(component.memberDetailForm.controls['lastname'].value).toBe(members[4].lastname);
       expect(submitEl.nativeElement.disabled).toBeFalsy();
+      spyOn(console, 'log');
+      spyOn(memeberEditService, 'editMember').and.returnValue(of(members[4]));
+      spyOn(router, 'navigateByUrl');
+      component.submitMemberDetails();
+      fixture.detectChanges();
+      expect(memeberEditService.editMember).toHaveBeenCalled();
+      expect(console.log).toHaveBeenCalled();
+      expect(router.navigateByUrl).toHaveBeenCalled();
     });
   });
+  it('should cancel and go back', () => {
+    router = TestBed.inject(Router);
+    cancelEl = fixture.debugElement.query(By.css('#matsubmitbutton'));
+    fixture.detectChanges();
+    component.ngOnInit();
+    spyOn(router, 'navigateByUrl');
+    component.cancelSubmits();
+    fixture.detectChanges();
+    expect(router.navigateByUrl).toHaveBeenCalled();
+  })
 });
