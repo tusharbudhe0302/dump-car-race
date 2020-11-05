@@ -1,26 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MembersService } from '../services/members.service';
 import { Member } from '../services/model/member';
 import { Team } from '../services/model/team';
 import { TeamsService } from '../services/teams.service';
+export class MemberDetails {
+  constructor(
+    _id: string,
+    firstname: string,
+    lastname: string,
+    team: string,
+    jobtitle: string,
+    status: string) { }
+}
 
 @Component({
   selector: 'member-details',
   templateUrl: './member-details.component.html',
   styleUrls: ['./member-details.component.css']
 })
-export class MemberDetailsComponent implements OnInit {
+export class MemberDetailsComponent {
   memberDetailForm: FormGroup;
   selectedTeam: String = '';
   teams: Team[];
   id: string;
   member: Member;
-  editChnages: boolean = true;
-  constructor(public fb: FormBuilder, public teamsService: TeamsService, public memberService: MembersService) { }
+  constructor(public fb: FormBuilder, public teamsService: TeamsService, public memberService: MembersService, public activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.memberDetailForm = this.fb.group({
@@ -28,7 +37,7 @@ export class MemberDetailsComponent implements OnInit {
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
       jobtitle: [''],
-      status: ['active', Validators.required],
+      status: ['', Validators.required],
       team: ['', Validators.required],
       created: new Date(),
       modified: new Date()
@@ -46,17 +55,17 @@ export class MemberDetailsComponent implements OnInit {
   // }
   getRoutesParams() {
     const uuidV4RegEx = /[\w]{8}-[\w]{4}-[\w]{4}-[\w]{4}-[\w]{12}/;
-    // this.activeRoute.params.subscribe(params => {
-    //   this.id = uuidV4RegEx.test(params['id']) === true ? params['id'] : null;
-    // });
+    if (uuidV4RegEx.test(this.activatedRoute.snapshot.params['id'])) {
+      this.id = this.activatedRoute.snapshot.params['id'];
+      return;
+    }
+    this.id = null;
   }
   getMemberById() {
     if (this.id) {
-      this.memberService.getMemberById(this.id).subscribe((member) => {
+      this.memberService.getMemberById(this.id).subscribe((member:Member) => {
         this.member = member;
         this.memberDetailForm.setValue(member);
-        // this.editChnages = false;
-        // this.memberDetailForm.controls['firstname'].setErrors({'incorrect': true});
       })
     }
   }
@@ -65,20 +74,20 @@ export class MemberDetailsComponent implements OnInit {
       this.teams = teams;
     })
   }
-  submitMemberDetails(memberDetailForm: FormGroup) {
+  submitMemberDetails() {
     if (this.id) {
-      this.memberService.editMember(this.id,memberDetailForm.value).subscribe((res)=>{
+      this.memberService.editMember(this.id, this.memberDetailForm.value).subscribe((res) => {
         console.log(`Update Service need to called:${res}`);
         // this.router.navigate(['members']);
       })
     }
     else {
-      this.memberService.createMember(memberDetailForm.value).subscribe((res)=>{
+      this.memberService.createMember(this.memberDetailForm.value).subscribe((res) => {
         console.log(`Create Service need to called :${res}`);
         // this.router.navigate(['members']);
       })
     }
-    console.log(memberDetailForm.value);
+    console.log(this.memberDetailForm.value);
   }
 
 }

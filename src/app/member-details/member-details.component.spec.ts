@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
 import { By } from '@angular/platform-browser';
@@ -32,15 +32,26 @@ import { Member } from '../services/model/member';
 import { TeamsService } from '../services/teams.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
 describe('MemberDetailsComponent', () => {
   let component: MemberDetailsComponent;
   let fixture: ComponentFixture<MemberDetailsComponent>;
   let el: DebugElement;
   let submitEl: DebugElement;
+  let firstnameEl: DebugElement;
+  let lastnameEl: DebugElement;
+  let jobtitleEl: DebugElement;
+  let statusEl: DebugElement;
   let membersService: any;
-  const id = members[4]._id;
+  let id = -1;
+  let mockActivatedRoute = {
+    snapshot: {
+      params: {
+        id: id
+      }
+    }
+  };
   beforeEach(async(() => {
+
     TestBed.configureTestingModule({
       declarations: [MemberDetailsComponent],
       imports: [
@@ -79,9 +90,7 @@ describe('MemberDetailsComponent', () => {
             getAllTeams: () => of(teams)
           }
         },
-        {
-          provide: ActivatedRoute, useValue: true
-        }
+        { provide: ActivatedRoute, useValue: mockActivatedRoute },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents().then(() => {
@@ -97,10 +106,11 @@ describe('MemberDetailsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  fdescribe('MemberDetails Reactive Form Controls', async () => {
+  describe('MemberDetails Create Reactive Form Controls', async () => {
     it('Setting disables the submit button', () => {
       fixture.detectChanges();
       expect(component.memberDetailForm instanceof FormGroup).toBe(true);
+      expect(component.id).toBe(null);
       expect(submitEl.nativeElement.disabled).toBeTruthy();
     });
     it('should Check First Name Validation', () => {
@@ -125,30 +135,30 @@ describe('MemberDetailsComponent', () => {
       let errors = {};
       fixture.detectChanges();
       component.ngOnInit();
-      let lastname = component.memberDetailForm.controls['jobtitle'];
-      expect(lastname.valid).toBeTruthy();
-      errors = lastname.errors || {};
+      let jobtitle = component.memberDetailForm.controls['jobtitle'];
+      expect(jobtitle.valid).toBeTruthy();
+      errors = jobtitle.errors || {};
       expect(errors['required']).toBeFalsy();
     });
-    it('should Check Teams Validation', () => {
+    it('should Check Status Validation', () => {
       let errors = {};
       fixture.detectChanges();
       component.ngOnInit();
-      let lastname = component.memberDetailForm.controls['status'];
-      expect(lastname.valid).toBeTruthy();
-      errors = lastname.errors || {};
-      expect(errors['required']).toBeFalsy();
+      let status = component.memberDetailForm.controls['status'];
+      expect(status.valid).toBeFalsy();
+      errors = status.errors || {};
+      expect(errors['required']).toBeTruthy();
     });
-    it('should Check After User info entered', () => {
+    it('should Check Team Validation', () => {
       let errors = {};
       fixture.detectChanges();
       component.ngOnInit();
-      let lastname = component.memberDetailForm.controls['status'];
-      expect(lastname.valid).toBeTruthy();
-      errors = lastname.errors || {};
-      expect(errors['required']).toBeFalsy();
+      let team = component.memberDetailForm.controls['team'];
+      expect(team.valid).toBeFalsy();
+      errors = team.errors || {};
+      expect(errors['required']).toBeTruthy();
     });
-    it('should enable submit button',()=>{
+    it('should enable submit button', async(() => {
       fixture.detectChanges();
       component.ngOnInit();
       component.memberDetailForm.controls['firstname'].setValue(members[4].firstname);
@@ -159,17 +169,25 @@ describe('MemberDetailsComponent', () => {
       fixture.detectChanges();
       // console.log(component.memberDetailForm.status);
       expect(component.memberDetailForm.status).toEqual('VALID');
+      submitEl.triggerEventHandler('ngSubmit', component.memberDetailForm);
+      fixture.detectChanges();
+      // expect(component.isCreated).toBe(true);
+    }));
+  });
+  describe('MemberDetails Edit Reactive Form Controls', async () => {
+    it('Setting enable the submit button', () => {
+      TestBed.inject(ActivatedRoute).snapshot.params['id'] = members[4]._id;
+      fixture.detectChanges();
+      component.ngOnInit();
+      expect(component.id).toEqual(members[4]._id);
+      fixture.detectChanges();
+      firstnameEl = fixture.debugElement.query(By.css('#firstname'));
+      lastnameEl = fixture.debugElement.query(By.css('#lastname'));
+      jobtitleEl = fixture.debugElement.query(By.css('#jobtitle'));
+      statusEl = fixture.debugElement.query(By.css('#status'));
+      expect(component.memberDetailForm.controls['firstname'].value).toBe(members[4].firstname);
+      expect(component.memberDetailForm.controls['lastname'].value).toBe(members[4].lastname);
+      expect(submitEl.nativeElement.disabled).toBeFalsy();
     });
-    
   });
-
-  // test passes since all expectations are ignored
-  it("should call get all members services bind to component", async () => {
-    // fixture.detectChanges();
-    // component.ngOnInit();
-    component.id = id;
-    pending();
-  });
-
-
 });
