@@ -23,12 +23,13 @@ export class MembersComponent implements OnInit {
     });
   }
   deleteMemberConfirm(member) {
+    //Open MatDialog and load component dynamically  
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
       data: {
         firstname: member.firstname,
         lastname: member.lastname
       }
-    });  //Open MatDialog and load component dynamically  
+    });  
 
     //Need to subscribe afterClosed event of MatDialog   
     dialogRef.afterClosed().subscribe(confirmresult => {
