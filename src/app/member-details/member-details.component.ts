@@ -66,6 +66,7 @@ export class MemberDetailsComponent {
     })
   }
   submitMemberDetails() {
+    console.log(this.memberDetailForm.value);
     if (this.id) {
       this.memberService.editMember(this.id, this.memberDetailForm.value).subscribe((res) => {
         console.log(`Update Service need to called:${res}`);
@@ -78,7 +79,6 @@ export class MemberDetailsComponent {
         this.router.navigateByUrl('/members');
       })
     }
-    console.log(this.memberDetailForm.value);
   }
   cancelSubmits(){
     this.router.navigateByUrl('/members');

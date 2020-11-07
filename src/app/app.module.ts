@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule} from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -24,7 +24,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { MembersComponent } from './members/members.component';
-// import { MemberinfoComponent } from "./memberinfo/MemberinfoComponent";
 import { TeamsComponent } from './teams/teams.component';
 import { TeaminfoComponent } from './teaminfo/teaminfo.component';
 import { MembersService } from './services/members.service';
@@ -73,8 +72,7 @@ import { DeleteConfirmationComponent } from './delete-confirmation/delete-confir
   ],
   providers: [
     MembersService,
-    TeamsService,
-    // { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { floatLabel: 'always' } }
+    TeamsService
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

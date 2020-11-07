@@ -3,6 +3,7 @@ import { MembersService } from '../services/members.service';
 import { Member } from '../services/model/member';
 import { DeleteConfirmationComponent } from '../delete-confirmation/delete-confirmation.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-members',
@@ -12,7 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class MembersComponent implements OnInit {
   members: Member[];
   displayedColumns: string[] = ['firstname', 'lastname', 'team', 'jobtitle', 'status', 'action'];
-  constructor(public membersService: MembersService, private dialog: MatDialog) { }
+  constructor(public membersService: MembersService, private dialog: MatDialog, public router: Router) { }
 
   ngOnInit() {
     this.getMembers();
@@ -29,7 +30,7 @@ export class MembersComponent implements OnInit {
         firstname: member.firstname,
         lastname: member.lastname
       }
-    });  
+    });
 
     //Need to subscribe afterClosed event of MatDialog   
     dialogRef.afterClosed().subscribe(confirmresult => {
@@ -48,5 +49,11 @@ export class MembersComponent implements OnInit {
     this.membersService.deleteMember(member._id).subscribe((res) => {
       this.ngOnInit();
     })
+  }
+  AddMember() {
+    this.router.navigateByUrl('/members/-1');
+  }
+  EditMember(member:Member){
+    this.router.navigateByUrl(`/members/${member._id}`);
   }
 }
