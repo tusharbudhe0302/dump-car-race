@@ -34,18 +34,18 @@ export class MembersComponent implements OnInit {
 
     //Need to subscribe afterClosed event of MatDialog   
     dialogRef.afterClosed().subscribe(confirmresult => {
-      console.log(confirmresult);
+      // console.log(confirmresult);
       if (confirmresult) {            //if dialog result is yes, delete member  
         this.deleteMember(member);
-        console.log("Delete confirm is approved by user.");
+        // console.log("Delete confirm is approved by user.");
       }
       else {                        //if dialog result is no, DO NOT delete member  
-        console.log("Delete confirm is cancelled by user.");
+        // console.log("Delete confirm is cancelled by user.");
       }
     })
   }
   deleteMember(member: any) {
-    console.log(`Delete members info. ${JSON.stringify(member)}`);
+    // console.log(`Delete members info. ${JSON.stringify(member)}`);
     this.membersService.deleteMember(member._id).subscribe((res) => {
       this.ngOnInit();
     })

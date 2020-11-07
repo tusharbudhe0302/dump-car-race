@@ -94,7 +94,7 @@ app.post('/api/members',(req,res,next)=>{
 app.put('/api/members/:id',(req,res,next)=>{
     res.send(members[4])
 });
-app.delete('/api/members',(req,res,next)=>{
+app.delete('/api/members/:id',(req,res,next)=>{
     res.send(members[4])
 });
 app.get('/api/teams',(req,res,next)=>{
