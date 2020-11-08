@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { of } from 'rxjs';
@@ -11,7 +11,7 @@ import { MembersComponent } from './members.component';
 import { MembersService } from '../services/members.service';
 import { members } from '../services/services.mock.data';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -32,6 +32,7 @@ import { Router } from '@angular/router';
 import { DeleteConfirmationComponent } from '../delete-confirmation/delete-confirmation.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { Member } from '../services/model/member';
 export class MatDialogStub {
   result: boolean = true;
 
@@ -40,16 +41,21 @@ export class MatDialogStub {
   }
 
   open() {
-    return { afterClosed: () => of(this.result) };
+    return { afterClosed: () => of(this.result) , close:()=> {} };
   }
 }
 describe('MembersComponent', () => {
   let component: MembersComponent;
+  let componentDelete: DeleteConfirmationComponent;
   let fixture: ComponentFixture<MembersComponent>;
+  let fixtureDelete: ComponentFixture<DeleteConfirmationComponent>;
   let el: DebugElement;
+  let deleteEl: DebugElement;
   let membersService: any;
   let loader: HarnessLoader;
+  let loaderDelete: HarnessLoader;
   const dialogStub = new MatDialogStub();
+  let dialog: MatDialog;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -77,29 +83,27 @@ describe('MembersComponent', () => {
         {
           provide: MembersService, useValue: {
             getAllMembers: () => of(members),
-            deleteMember: (id: string) => of(members[4]),
+            deleteMember: (member:Member) => of(members[4]),
           },
-        },
-        {
-          provide: MatDialog, useValue: {
-            afterClosed: () => of(Boolean)
-          }
         },
         {
           provide: Router, useValue: {
             navigateByUrl(url: string) { return url; }
           }
-        }, {
+        },
+        {
           provide: MatDialog, useValue: dialogStub
-        }
+        },
+        { provide: MAT_DIALOG_DATA, useValue: {} }
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents().then(() => {
       fixture = TestBed.createComponent(MembersComponent);
       loader = TestbedHarnessEnvironment.loader(fixture);
       component = fixture.componentInstance;
       el = fixture.debugElement;
       membersService = TestBed.inject(MembersService);
+      dialog = TestBed.inject(MatDialog);
     });
   }));
   it('should create and do ngOnIt', () => {
@@ -162,10 +166,52 @@ describe('MembersComponent', () => {
     const deleteMembersButtons = await loader.getAllHarnesses(MatButtonHarness.with({ selector: '.mat-warn' }));
     console.log(`editMembersButtons: ${deleteMembersButtons.length}`);
     await deleteMembersButtons[4].click();
+    dialog = TestBed.inject(MatDialog);
+    spyOn(dialog, 'open').and.callThrough();
     expect(fixture.componentInstance.deleteMemberConfirm).toBeTruthy();
+
+    fixtureDelete = TestBed.createComponent(DeleteConfirmationComponent);
+    loaderDelete = TestbedHarnessEnvironment.loader(fixtureDelete);
+    componentDelete = fixtureDelete.componentInstance;
+    fixtureDelete.detectChanges();
+    await fixtureDelete.whenStable().then(async () => {
+      componentDelete.ngOnInit();
+      dialogStub.setResult(false);
+      expect(dialog.open).toBeTruthy();
+      loaderDelete = TestbedHarnessEnvironment.loader(fixtureDelete);
+      let DeleteNoEl = fixtureDelete.debugElement.query(By.css('#matDialogDeleteNo'));
+      expect(DeleteNoEl).toBeTruthy();
+      DeleteNoEl.triggerEventHandler('click', false);
+    });
+  });
+  it('should click delete member button Open Dailog yes Click', async () => {
+    let router = TestBed.inject(Router);
+    spyOn(router, 'navigateByUrl');
+    expect(component).toBeTruthy();
     fixture.detectChanges();
-    await fixture.whenStable().then(async () => {
-        console.log(`Delete Confirmation Componet Logic Need to implment`);
+    const deleteMembersButtons = await loader.getAllHarnesses(MatButtonHarness.with({ selector: '.mat-warn' }));
+    console.log(`editMembersButtons: ${deleteMembersButtons.length}`);
+    await deleteMembersButtons[4].click();
+    dialog = TestBed.inject(MatDialog);
+    spyOn(dialog, 'open').and.callThrough();
+    expect(fixture.componentInstance.deleteMemberConfirm).toBeTruthy();
+
+    fixtureDelete = TestBed.createComponent(DeleteConfirmationComponent);
+    loaderDelete = TestbedHarnessEnvironment.loader(fixtureDelete);
+    componentDelete = fixtureDelete.componentInstance;
+    fixtureDelete.detectChanges();
+    await fixtureDelete.whenStable().then(async () => {
+      componentDelete.ngOnInit();
+      expect(dialog.open).toBeTruthy();
+      dialogStub.setResult(true);
+      loaderDelete = TestbedHarnessEnvironment.loader(fixtureDelete);
+      let DeleteYesEl = fixtureDelete.debugElement.query(By.css('#matDialogDeleteYes'));
+      expect(DeleteYesEl).toBeTruthy();
+      DeleteYesEl.triggerEventHandler('click', true);
+      spyOn(console, 'log');
+      spyOn(membersService, 'deleteMember').and.returnValue(of(members[4]));
+      // expect(membersService.deleteMember).toHaveBeenCalled();
+      // expect(console.log).toHaveBeenCalled();
     });
   });
 });
