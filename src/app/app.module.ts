@@ -72,8 +72,8 @@ import { DeleteConfirmationComponent } from './delete-confirmation/delete-confir
   ],
   providers: [
     MembersService,
-    TeamsService,
-    MatDialogRef
+    TeamsService
+    // MatDialogRef
   ],
   bootstrap: [AppComponent],
   entryComponents:[DeleteConfirmationComponent],
