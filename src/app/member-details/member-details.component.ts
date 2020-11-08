@@ -66,7 +66,7 @@ export class MemberDetailsComponent {
     })
   }
   submitMemberDetails() {
-    console.log(this.memberDetailForm.value);
+    // console.log(this.memberDetailForm.value);
     if (this.id) {
       this.memberService.editMember(this.id, this.memberDetailForm.value).subscribe((res) => {
         console.log(`Update Service need to called:${res}`);

@@ -16,6 +16,9 @@ describe("Members Page", () => {
             cy.wait('@getAllMembers');
         });
     })
+    it('uses modules', () => {
+        expect(true).to.equal(true);
+    });
     it("should log cookies and check conentType text/html", () => {
         Cypress.Cookies.debug(true);
         cy.document().its('contentType').should('eq', 'text/html')
@@ -82,9 +85,9 @@ describe("Members Page", () => {
         cy.get('@lastDeleteBtn').should('be.not.disabled');
         cy.get('@lastDeleteBtn').click();
         cy.url().should('include', '/members');
-        cy.get('#matDialogDeleteNo').as('noDeleteBtn').wait(2);
+        cy.get('#matDialogDeleteNo').as('noDeleteBtn').wait(1);
         cy.get('@noDeleteBtn').should('be.not.disabled');
-        cy.get('@noDeleteBtn').click({ force: true })
+        cy.get('@noDeleteBtn').click({ force: true }).wait(1);
         cy.url().should('include', '/members');
     });
     it('should check members table Add New Member Save', () => {
