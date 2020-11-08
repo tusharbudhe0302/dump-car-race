@@ -30,8 +30,8 @@
     </div>
     <mat-form-field class="form-field" appearance="outline">
         <mat-label>Your Team</mat-label>
-        <mat-select name="selectedTeam" id="teams" formControlName="team" [(ngModel)]="selectedTeam">
-            <mat-option *ngFor="let team of teams" value="{{team.teamname}}">{{team.teamname}}</mat-option>
+        <mat-select name="selectedTeam" id="memberteams" formControlName="team" [(ngModel)]="selectedTeam">
+            <mat-option id="memberteam" *ngFor="let team of teams" value="{{team.teamname}}">{{team.teamname}}</mat-option>
         </mat-select>
         <mat-error *ngIf="memberDetailForm.controls.team.invalid">
             <span *ngIf="memberDetailForm.controls.team.errors.required">Please select team.</span>

@@ -10,7 +10,6 @@ describe("Members Page", () => {
         dumpCarRaseBaseAPIUrl = Cypress.env('api_server');
 
         cy.fixture('members.json').as("membersJSON");
-        // cy.fixture('member.json').as("memberJSON");
         cy.server();
         cy.route(dumpCarRaseBaseAPIUrl + '/api/members', '@membersJSON').as('getAllMembers').its('status').should('eq', 200);
         cy.visit(dumpCarRaseBaseUIUrl).then(() => {
@@ -88,7 +87,7 @@ describe("Members Page", () => {
         cy.get('@noDeleteBtn').click({ force: true })
         cy.url().should('include', '/members');
     });
-    it('should check members table Add New Member', () => {
+    it('should check members table Add New Member Save', () => {
         cy.get('#mataddmemberbutton').as('addNewMember');
         cy.get('@addNewMember').should('be.not.disabled');
         cy.get('@addNewMember').click();
@@ -104,7 +103,29 @@ describe("Members Page", () => {
         cy.get('input[name="lastname"]').type('y');
         cy.get('input[name="jobtitle"]').type('XY');
         cy.get('[type="radio"]').first().check({ force: true });
-        // cy.get('.mat-select').click();
-        //cy.server();
+        cy.get('#memberteams').click();
+        cy.get('#memberteam').contains("team 1").then(option => {
+            cy.wrap(option).contains("team 1");
+            option[0].click();
+        });
+        cy.get('@submitBtn').should('be.not.disabled');
+        cy.get('@submitBtn').click();
+        cy.server();
+        cy.route(dumpCarRaseBaseAPIUrl + '/api/members').as('member').its('status').should('eq', 200);
+        cy.url().should('include', '/members');
+    });
+    it('should check members table Add New Member', () => {
+        cy.get('#mataddmemberbutton').as('addNewMember');
+        cy.get('@addNewMember').should('be.not.disabled');
+        cy.get('@addNewMember').click();
+        cy.url().should('include', '/members/' + '-1');
+        cy.server();
+        cy.route(dumpCarRaseBaseAPIUrl + '/api/teams').as('teams').its('status').should('eq', 200);
+        cy.get('@teams');
+        cy.get('#matcancelbutton').as('cancelBtn');
+        cy.get('@cancelBtn').should('be.not.disabled');
+        cy.get('@cancelBtn').click();
+        cy.url().should('include', '/members');
+       
     });
 });
