@@ -31,7 +31,7 @@ describe('MembersService', () => {
         expect(members).toBeTruthy('No members returned');
         expect(members.length).toBe(5, "incorrect number of members");
         const member = members.find(member => member._id == '34ef6d50-1af8-11eb-9619-7bd0236f9c77');
-        expect(member.jobtitle).toBe("job 5");
+        expect(member.jobtitle).toBe("5");
       });
     const req = httpTestingController.expectOne(`${api}/api/members`);
     expect(req.request.method).toEqual("GET");

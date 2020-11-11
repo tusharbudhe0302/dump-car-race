@@ -1,74 +1,76 @@
-export const members:any  = [
-    {
-        "_id": "34ed9890-1af8-11eb-9619-7bd0236f9c77",
-        "firstname": "fn 1",
-        "lastname": "ln 1",
-        "team": "team 1",
-        "jobtitle": "job 1",
-        "status": "active",
-        "created": "2020-11-02T15:30:46.781Z",
-        "modified": "2020-11-02T15:30:46.781Z"
-    },
-    {
-        "_id": "34ee34d0-1af8-11eb-9619-7bd0236f9c77",
-        "firstname": "fn 2",
-        "lastname": "ln 2",
-        "team": "team 2",
-        "jobtitle": "job 2",
-        "status": "active",
-        "created": "2020-11-02T15:30:46.781Z",
-        "modified": "2020-11-02T15:30:46.781Z"
-    },
-    {
-        "_id": "34ee82f0-1af8-11eb-9619-7bd0236f9c77",
-        "firstname": "fn 3",
-        "lastname": "ln 3",
-        "team": "team 3",
-        "jobtitle": "job 3",
-        "status": "active",
-        "created": "2020-11-02T15:30:46.781Z",
-        "modified": "2020-11-02T15:30:46.781Z"
-    },
-    {
-        "_id": "34eef820-1af8-11eb-9619-7bd0236f9c77",
-        "firstname": "fn 4",
-        "lastname": "ln 4",
-        "team": "team 4",
-        "jobtitle": "job 4",
-        "status": "active",
-        "created": "2020-11-02T15:30:46.781Z",
-        "modified": "2020-11-02T15:30:46.781Z"
-    },
-    {
-        "_id": "34ef6d50-1af8-11eb-9619-7bd0236f9c77",
-        "firstname": "fn 5",
-        "lastname": "ln 5",
-        "team": "team 5",
-        "jobtitle": "job 5",
-        "status": "active",
-        "created": "2020-11-02T15:30:46.781Z",
-        "modified": "2020-11-02T15:30:46.781Z"
-    }
-];
-export const teams:any = [
+export const members: any =
+    [
+        {
+            "_id": "34ed9890-1af8-11eb-9619-7bd0236f9c77",
+            "firstname": "1",
+            "lastname": "1",
+            "jobtitle": "1",
+            "status": "active",
+            "team": "Formula 2 - Car 54",
+            "created": "2020-11-02T15:30:46.781Z",
+            "modified": "2020-11-02T15:30:46.781Z"
+        },
+        {
+            "_id": "34ee34d0-1af8-11eb-9619-7bd0236f9c77",
+            "firstname": "2",
+            "lastname": "2",
+            "jobtitle": "2",
+            "status": "active",
+            "team": "Formula 1 - Car 8",
+            "created": "2020-11-02T15:30:46.781Z",
+            "modified": "2020-11-02T15:30:46.781Z"
+        },
+        {
+            "_id": "34ee82f0-1af8-11eb-9619-7bd0236f9c77",
+            "firstname": "3",
+            "lastname": "3",
+            "jobtitle": "3",
+            "team": "Formula 2 - Car 63",
+            "status": "active",
+            "created": "2020-11-02T15:30:46.781Z",
+            "modified": "2020-11-02T15:30:46.781Z"
+        },
+        {
+            "_id": "34eef820-1af8-11eb-9619-7bd0236f9c77",
+            "firstname": "4",
+            "lastname": "4",
+            "jobtitle": "4",
+            "team": "Deutsche Tourenwagen Masters - Car 118",
+            "status": "inactive",
+            "created": "2020-11-02T15:30:46.781Z",
+            "modified": "2020-11-02T15:30:46.781Z"
+        },
+        {
+            "_id": "34ef6d50-1af8-11eb-9619-7bd0236f9c77",
+            "firstname": "5",
+            "lastname": "5",
+            "jobtitle": "5",
+            "team": "Deutsche Tourenwagen Masters - Car 118",
+            "status": "active",
+            "created": "2020-11-02T15:30:46.781Z",
+            "modified": "2020-11-02T15:30:46.781Z"
+        }
+    ];
+
+export const teams: any = [
     {
         "_id": "6a559fa0-1af8-11eb-b390-1fcbc5d538a1",
-        "teamname": "team 1"
+        "teamname": "Formula 1 - Car 77"
     },
     {
         "_id": "6a577460-1af8-11eb-b390-1fcbc5d538a1",
-        "teamname": "team 2"
+        "teamname": "Formula 1 - Car 8"
     },
     {
         "_id": "6a57e990-1af8-11eb-b390-1fcbc5d538a1",
-        "teamname": "team 3"
+        "teamname": "Formula 2 - Car 54"
     },
     {
         "_id": "6a5837b0-1af8-11eb-b390-1fcbc5d538a1",
-        "teamname": "team 4"
+        "teamname": "Formula 2 - Car 63"
     },
     {
         "_id": "6a5885d0-1af8-11eb-b390-1fcbc5d538a1",
-        "teamname": "team 5"
+        "teamname": "Deutsche Tourenwagen Masters - Car 118"
     }
 ]

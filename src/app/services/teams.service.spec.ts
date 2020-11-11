@@ -28,7 +28,7 @@ describe('TeamsService', () => {
         expect(teams).toBeTruthy('No teams returned');
         expect(teams.length).toBe(5, "incorrect number of teams");
         const team = teams.find(team => team._id == id);
-        expect(team.teamname).toBe("team 5");
+        expect(team.teamname).toBe("Deutsche Tourenwagen Masters - Car 118");
       });
     const req = httpTestingController.expectOne(`${api}/api/teams`);
     expect(req.request.method).toEqual("GET");

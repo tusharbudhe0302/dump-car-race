@@ -107,8 +107,8 @@ describe("Members Page", () => {
         cy.get('input[name="jobtitle"]').type('XY');
         cy.get('[type="radio"]').first().check({ force: true });
         cy.get('#memberteams').click();
-        cy.get('#memberteam').contains("team 1").then(option => {
-            cy.wrap(option).contains("team 1");
+        cy.get('#memberteam').contains("Formula 1 - Car 77").then(option => {
+            cy.wrap(option).contains("Formula 1 - Car 77");
             option[0].click();
         });
         cy.get('@submitBtn').should('be.not.disabled');
