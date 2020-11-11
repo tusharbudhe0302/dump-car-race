@@ -7,22 +7,20 @@ This project is create for interview process & knowledge transformation.
 
 #### Status Of Application
 
-- Development Status is done.
+**Development Status is done.
 
+- [X] Create JSON Server Mock API
+- [X] Create Angular Application
+- [X] Unit & Intergation Testing for Fontend Using Jasmine & Karma
+- [X] End To End Testing Using Cypress.
 
- [X] Create JSON Server Mock API
- [X] Create Angular Application
- [X] Unit & Intergation Testing for Fontend Using Jasmine & Karma
- [X] End To End Testing Using Cypress.
+**Development Status is inprogress.
 
-
-- Development Status is inprogress.
-
- [X] Create Backend Using NodeJS, Express & Mongoose
- [ ] Unit & Intergation Testing for Fontend
- [ ] Genrate Swagger Contracts
- [ ] Create Docker Image & Push to Artifactory
- [ ] Host the application to any Cloud using CI/CD
+- [X] Create Backend Using NodeJS, Express & Mongoose
+- [ ] Unit & Intergation Testing for Fontend
+- [ ] Genrate Swagger Contracts
+- [ ] Create Docker Image & Push to Artifactory
+- [ ] Host the application to any Cloud using CI/CD
 
 ### Want to setup in your local?
 Please follow below steps:
