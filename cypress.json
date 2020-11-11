@@ -2,6 +2,6 @@
     "project": "Dump Car Race",
     "env": {
         "baseUrl": "http://localhost:4200",
-        "api_server": "http://localhost:9000"
+        "api_server": "http://localhost:3000"
     }
 }

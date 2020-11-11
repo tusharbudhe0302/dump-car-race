@@ -36,39 +36,44 @@ describe("Members Page", () => {
     it('should check members table', () => {
         cy.get(".mat-header-cell").should("have.length", 6); // Column Length
         cy.get(".mat-column-firstname").should("have.length", 6); // Rows (5) + Header (1) = Total(6)   
-    })
-    it('should check members table edit button click Save', () => {
+    });
+    it('should check members table edit button click Cancel', (done) => {
+        cy.get(".mat-column-firstname").should("have.length", 6);
         cy.get(".mat-primary").last().as('lastEditBtn');
         cy.get('@lastEditBtn').should('be.not.disabled');
-        cy.get('@lastEditBtn').click();
+        cy.get('@lastEditBtn').click().wait(5);
         cy.url().should('include', '/members/' + lastMemberId);
         cy.server();
         cy.route(dumpCarRaseBaseAPIUrl + '/api/members/' + lastMemberId).as('member').its('status').should('eq', 200);
         cy.get('@member').then((member) => {
-            cy.get('input[name="firstname"]').should('have.value', 'fn 5');
+            cy.get('input[name="firstname"]').should('have.value', '5');
+            cy.get('#matcancelbutton').as('cancelBtn')
+            cy.get('@cancelBtn').should('be.not.disabled');
+            cy.get('@cancelBtn').click();
+            cy.url().should('include', '/members');
+            done();
+        });
+    });
+    it('should check members table edit button click Save', (done) => {
+        cy.get(".mat-primary").last().as('lastEditBtn');
+        cy.get('@lastEditBtn').should('be.not.disabled');
+        cy.get('@lastEditBtn').click();
+        cy.server();
+        cy.route(dumpCarRaseBaseAPIUrl + '/api/members/' + lastMemberId).as('member').its('status').should('eq', 200);
+        cy.get('@member')
+        .then((member) => {
+            cy.wait('@member');
+            cy.url().should('include', '/members/' + lastMemberId);
+            cy.get('input[name="firstname"]').should('have.value', '5');
             cy.get('#matsubmitbutton').as('submitBtn')
             cy.get('@submitBtn').should('be.not.disabled');
             cy.get('@submitBtn').click();
             cy.route(dumpCarRaseBaseAPIUrl + '/api/members/' + lastMemberId, cy.get('@member')).as('member').its('status').should('eq', 200);
             cy.url().should('include', '/members');
+            done();
         });
     });
-    it('should check members table edit button click Cancel', () => {
-        cy.get(".mat-primary").last().as('lastEditBtn');
-        cy.get('@lastEditBtn').should('be.not.disabled');
-        cy.get('@lastEditBtn').click();
-        cy.url().should('include', '/members/' + lastMemberId);
-        cy.server();
-        cy.route(dumpCarRaseBaseAPIUrl + '/api/members/' + lastMemberId).as('member').its('status').should('eq', 200);
-        cy.get('@member').then((member) => {
-            cy.get('input[name="firstname"]').should('have.value', 'fn 5');
-            cy.get('#matcancelbutton').as('cancelBtn')
-            cy.get('@cancelBtn').should('be.not.disabled');
-            cy.get('@cancelBtn').click();
-            cy.url().should('include', '/members');
-        });
-    });
-    it('should check members table delete button click Yes', () => {
+    it('should check members table delete button click Yes', (done) => {
         cy.get(".mat-warn").last().as('lastDeleteBtn');
         cy.get('@lastDeleteBtn').should('be.not.disabled');
         cy.get('@lastDeleteBtn').click();
@@ -79,8 +84,9 @@ describe("Members Page", () => {
         cy.url().should('include', '/members');
         cy.server();
         cy.route(dumpCarRaseBaseAPIUrl + '/api/members/' + lastMemberId).as('member').its('status').should('eq', 200);
+        done();
     });
-    it('should check members table delete button click No', () => {
+    it('should check members table delete button click No', (done) => {
         cy.get(".mat-warn").last().as('lastDeleteBtn').wait(1);
         cy.get('@lastDeleteBtn').should('be.not.disabled');
         cy.get('@lastDeleteBtn').click();
@@ -89,12 +95,13 @@ describe("Members Page", () => {
         cy.get('@noDeleteBtn').should('be.not.disabled');
         cy.get('@noDeleteBtn').click({ force: true }).wait(1);
         cy.url().should('include', '/members');
+        done();
     });
-    it('should check members table Add New Member Save', () => {
+    it('should check members table Add New Member Save', (done) => {
         cy.get('#mataddmemberbutton').as('addNewMember');
         cy.get('@addNewMember').should('be.not.disabled');
         cy.get('@addNewMember').click();
-        cy.url().should('include', '/members/' + '-1');
+        cy.url().should('include', '/members/' + '-1').wait(2);
         cy.server();
         cy.route(dumpCarRaseBaseAPIUrl + '/api/teams').as('teams').its('status').should('eq', 200);
         cy.get('@teams');
@@ -116,8 +123,9 @@ describe("Members Page", () => {
         cy.server();
         cy.route(dumpCarRaseBaseAPIUrl + '/api/members').as('member').its('status').should('eq', 200);
         cy.url().should('include', '/members');
+        done();
     });
-    it('should check members table Add New Member', () => {
+    it('should check members table Add New Member', (done) => {
         cy.get('#mataddmemberbutton').as('addNewMember');
         cy.get('@addNewMember').should('be.not.disabled');
         cy.get('@addNewMember').click();
@@ -129,6 +137,6 @@ describe("Members Page", () => {
         cy.get('@cancelBtn').should('be.not.disabled');
         cy.get('@cancelBtn').click();
         cy.url().should('include', '/members');
-       
+       done();
     });
 });
