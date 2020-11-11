@@ -7,14 +7,14 @@ This project is create for interview process & knowledge transformation.
 
 #### Status Of Application
 
-**Development Status is done.
+Development Status is **done.**
 
 - [X] Create JSON Server Mock API
 - [X] Create Angular Application
 - [X] Unit & Intergation Testing for Fontend Using Jasmine & Karma
 - [X] End To End Testing Using Cypress.
 
-**Development Status is inprogress.
+Development Status is **inprogress.**
 
 - [X] Create Backend Using NodeJS, Express & Mongoose
 - [ ] Unit & Intergation Testing for Fontend
