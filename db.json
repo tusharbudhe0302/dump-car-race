@@ -1,0 +1,76 @@
+{
+  "members": [
+    {
+      "_id": "34ed9890-1af8-11eb-9619-7bd0236f9c77",
+      "firstname": "1",
+      "lastname": "1",
+      "jobtitle": "1",
+      "status": "active",
+      "team": "Formula 2 - Car 54",
+      "created": "2020-11-02T15:30:46.781Z",
+      "modified": "2020-11-02T15:30:46.781Z"
+    },
+    {
+      "_id": "34ee34d0-1af8-11eb-9619-7bd0236f9c77",
+      "firstname": "2",
+      "lastname": "2",
+      "jobtitle": "2",
+      "status": "active",
+      "team": "Formula 1 - Car 8",
+      "created": "2020-11-02T15:30:46.781Z",
+      "modified": "2020-11-02T15:30:46.781Z"
+    },
+    {
+      "_id": "34ee82f0-1af8-11eb-9619-7bd0236f9c77",
+      "firstname": "3",
+      "lastname": "3",
+      "jobtitle": "3",
+      "team": "Formula 2 - Car 63",
+      "status": "active",
+      "created": "2020-11-02T15:30:46.781Z",
+      "modified": "2020-11-02T15:30:46.781Z"
+    },
+    {
+      "_id": "34eef820-1af8-11eb-9619-7bd0236f9c77",
+      "firstname": "4",
+      "lastname": "4",
+      "jobtitle": "4",
+      "team": "Deutsche Tourenwagen Masters - Car 118",
+      "status": "inactive",
+      "created": "2020-11-02T15:30:46.781Z",
+      "modified": "2020-11-02T15:30:46.781Z"
+    },
+    {
+      "_id": "34ef6d50-1af8-11eb-9619-7bd0236f9c77",
+      "firstname": "5",
+      "lastname": "5",
+      "jobtitle": "5",
+      "team": "Deutsche Tourenwagen Masters - Car 118",
+      "status": "active",
+      "created": "2020-11-02T15:30:46.781Z",
+      "modified": "2020-11-02T15:30:46.781Z"
+    }
+  ],
+  "teams": [
+    {
+      "_id": "6a559fa0-1af8-11eb-b390-1fcbc5d538a1",
+      "teamname": "Formula 1 - Car 77"
+    },
+    {
+      "_id": "6a577460-1af8-11eb-b390-1fcbc5d538a1",
+      "teamname": "Formula 1 - Car 8"
+    },
+    {
+      "_id": "6a57e990-1af8-11eb-b390-1fcbc5d538a1",
+      "teamname": "Formula 2 - Car 54"
+    },
+    {
+      "_id": "6a5837b0-1af8-11eb-b390-1fcbc5d538a1",
+      "teamname": "Formula 2 - Car 63"
+    },
+    {
+      "_id": "6a5885d0-1af8-11eb-b390-1fcbc5d538a1",
+      "teamname": "Deutsche Tourenwagen Masters - Car 118"
+    }
+  ]
+}
