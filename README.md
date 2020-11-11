@@ -1,27 +1,62 @@
-# DumpCarRace
+# Dumap Car Race
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.6.
+This project is create for interview process & knowledge transformation.
 
-## Development server
+- [Angular CLI](https://github.com/angular/angular-cli) version 9.1.6.
+- [NodeJS](https://nodejs.org/en/docs/) version 12.16.3
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+#### Status Of Application
+- Development Status is done.
+---
 
-## Code scaffolding
+[X] Create JSON Server Mock API
+[X] Create Angular Application
+[X] Unit & Intergation Testing for Fontend Using Jasmine & Karma
+[X] End To End Testing Using Cypress.
+---
+---
+- Development Status is inprogress.
+---
+[ ] Create Backend Using NodeJS, Express & Mongoose
+[ ] Unit & Intergation Testing for Fontend
+[ ] Genrate Swagger Contracts
+[ ] Create Docker Image & Push to Artifactory
+[ ] Host the application to any Cloud using CI/CD
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Want to setup in your local?
+Please follow below steps:
+ - git clone
+ `https://github.com/tusharbudhe0302/dump-car-race.git`
+ - go to path
+ `cd dump-car-race`
+ - Install node modules
+ `npm install`
+ - Start Fake Backend  
+ `npm run server`
+ - Start Angular Frontend   
+ `ng serve`
+ 
+You are good to access and application: http://localhost:4200
 
-## Build
+### Global modules used for development
+ - npm install -g @angular/cli
+ - npm install -g json-server
+ - npm install -g jest
+ - npm install -g nodemon
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+#### Frontend Unit & Integartion Test
+- Usings Jasmine & Karma framework
+    `ng test` 
+    `ng test --code-coverage=true`
+-   100% Code Coverage for Unit Testing.Please Check Path ` coverage/dump-car-race/index.html`
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+#### Backend Unit & Integartion Test (WIP)
+- Usings Jest framework
+    `jest test`
+    `jest test --code-coverage=true`
+- It's still WIP. Still Working
 
 ## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+ - You Can directly Check Video for e2e testing report
+ - Path `cypress/videos`
+ - Run `ng e2e` to execute the end-to-end tests via [Cypress](https://www.cypress.io/).
