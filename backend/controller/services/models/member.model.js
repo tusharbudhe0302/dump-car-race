@@ -1,7 +1,7 @@
-const mongoose  = require('../utils/dbconnection').mongoose;
+const mongoose  = require('../utils').mongoose;
 const uuid = require('uuid');
 
-const memberSchema = new mongoose.mongoose.Schema ({
+const memberSchema = new mongoose.Schema ({
     _id: {
         type: String,
         default: uuid.v1
@@ -34,4 +34,4 @@ const memberSchema = new mongoose.mongoose.Schema ({
         },
         versionKey: false
     });
-module.exports = mongoose.mongoose.model('member', memberSchema);
+module.exports = mongoose.model('member', memberSchema);
