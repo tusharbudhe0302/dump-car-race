@@ -9,9 +9,9 @@ const getAllMembers = async () => {
     }
 
 }
-const getAllMembersById = async (id) => {
+const getMemberById = async (id) => {
     try {
-        return await Members.findById(id);
+        return await Members.findById({ _id: id });
     }
     catch (ex) {
         throw new Error({ status: 500, error: ex });
@@ -23,7 +23,7 @@ const createMember = async (member) => {
             firstname: member.firstname,
             lastname: member.lastname,
             team: member.team,
-            jobtitle:member.jobtitle,
+            jobtitle: member.jobtitle,
             status: member.status
         });
         return newMember;
@@ -32,10 +32,19 @@ const createMember = async (member) => {
         throw new Error({ status: 500, error: ex });
     }
 }
-const updateMember = async (id,member) => {
+const updateMember = async (id, member) => {
     try {
-        const updateMember = await Members.findByIdAndUpdate(id,member);
+        const updateMember = await Members.findByIdAndUpdate({ _id: id }, member);
         return updateMember;
+    }
+    catch (ex) {
+        throw new Error({ status: 500, error: ex });
+    }
+}
+const deleteMember = async (id) => {
+    try {
+        const deletedMember = await Members.findByIdAndDelete(id);
+        return deletedMember;
     }
     catch (ex) {
         throw new Error({ status: 500, error: ex });
@@ -43,7 +52,8 @@ const updateMember = async (id,member) => {
 }
 module.exports.membersController = {
     getAllMembers: getAllMembers,
-    getAllMembersById: getAllMembersById,
+    getMemberById: getMemberById,
     createMember: createMember,
-    updateMember:updateMember
+    updateMember: updateMember,
+    deleteMember: deleteMember
 }

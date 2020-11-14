@@ -51,6 +51,6 @@ describe('connectDatabase', () => {
   afterEach(()=>{
     jest.clearAllMocks(); 
     jest.resetAllMocks();
-    jest.resetModules();
+    // jest.resetModules();
   })
 });

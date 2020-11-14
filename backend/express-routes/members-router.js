@@ -14,7 +14,7 @@ module.exports.membersRoute = (routes) => {
     routes.get('/members/:id', async (req, res, next) => {
         try {
             if (!req.params.id) throw { status: 400, error: `Members id required` };
-            const member = await membersController.getAllMembersById(req.params.id);
+            const member = await membersController.getMemberById(req.params.id);
             return res.status(200).send(member);
         } catch (ex) {
             next(ex);
@@ -43,6 +43,15 @@ module.exports.membersRoute = (routes) => {
                 const updatedMember = await membersController.updateMember(id,req.body);
                 return res.status(200).send(updatedMember);
             }
+        } catch (ex) {
+            next(ex);
+        }
+    });
+    routes.delete('/members/:id', async (req, res, next) => {
+        try {
+            if (!req.params.id) throw { status: 400, error: `Members id required` };
+            const member = await membersController.deleteMember(req.params.id);
+            return res.status(200).send(member);
         } catch (ex) {
             next(ex);
         }

@@ -3,14 +3,14 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const hsts = require('hsts');
-const path = require('path');
 const xssFilter = require('x-xss-protection');
 const nosniff = require('dont-sniff-mimetype');
 const morgan = require('morgan');
 
+
 const app = express();
 const routes = express.Router();
-
+// app.use(routes);
 const membersRoutes = require('./express-routes/members-router').membersRoute(routes);
 const teamsRoutes = require('./express-routes/teams-router').teamsRoute(routes);
 
@@ -23,6 +23,7 @@ app.disable('x-powered-by');
 app.use(xssFilter());
 app.use(nosniff());
 app.set('etag', false);
+
 // To setup policy
 app.use(helmet({ noCache: false }));
 // 180 days in seconds
