@@ -9,6 +9,7 @@ const callback = (err) => {
 }
 
 const connectDatabase = () => {
+    console.log(`process.env.mongoUrl: ${process.env.mongoUrl}`);
     const mongoUrl = process.env.mongoUrl || 'mongodb://localhost:27017/f1race';
     return mongoose.connect(mongoUrl, { useCreateIndex: true, useNewUrlParser: true }, exports.callback);
 }

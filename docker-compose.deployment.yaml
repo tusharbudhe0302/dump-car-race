@@ -1,0 +1,44 @@
+version: "3"
+
+services:
+    mongo:
+        container_name: mongo
+        image: mongo:latest
+        environment:
+          - MONGODBPATH=/data/db
+        volumes:
+          - .:/data/db
+        ports:
+          - "27017:27017"
+        healthcheck:
+          test: echo'db.stats().ok' | mongo localhost:27017/dumpcarracedb --quiet
+    webserver:
+        image: tusharbudhe0302/dump-car-race-docker-hub-repo:webserver
+        container_name: webserver
+        environment:
+            - PORT=4200
+        build:
+            context: .
+            dockerfile: .docker/client.dockerfile
+        volumes:
+          - .:/data/webserver    
+        ports:
+          - "4200:4200"
+    appserver:
+        image: tusharbudhe0302/dump-car-race-docker-hub-repo:appserver
+        container_name: appserver
+        environment:
+          - PORT=3000
+          - mongoUrl=mongodb://mongo:27017/dumpcarracedb 
+        build:
+            context: .
+            dockerfile: .docker/server.dockerfile
+        restart: always
+        volumes:
+          - .:/data/appserver             
+        ports:
+          - "3000:3000"
+        depends_on:
+          - mongo 
+        links:
+          - mongo
